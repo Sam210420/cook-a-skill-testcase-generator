@@ -1,98 +1,287 @@
-# SKILL SPEC: Smart Test Case Generator
+# SKILL SPEC
+## Smart Test Case Generator Pro
+
+---
 
 ## 1. Context
-QC/Testers spend significant time manually writing test cases from product specs.
-Edge cases and negative cases are often missed.
+
+In modern software development, QC/Testers spend significant time manually analyzing product specifications and writing test cases.  
+Manual writing often leads to:
+
+- Missed edge cases
+- Inconsistent format
+- Lack of priority classification
+- Poor coverage visibility
+- Manual reporting effort after testing
+
+This skill aims to encode professional QA thinking into a structured AI workflow.
+
+---
 
 ## 2. Objective
-Design an AI Skill that converts a spec.md file into a structured, production-ready test case list.
+
+Design an AI Skill that:
+
+Input: A structured product specification file (spec.md)  
+Output: A complete, structured, production-ready test case suite with coverage analysis and report-ready format.
+
+The skill must simulate how a senior QA analyzes a feature.
 
 ---
 
-## 3. Input
+## 3. Target Users
 
-Input format:
-- Product specification in markdown (.md)
-- May contain:
-  - User stories
+- QC / Tester
+- QA Engineer
+- QA Manager
+- Product Owner (for spec review)
+
+---
+
+## 4. Input Specification
+
+The skill accepts:
+
+- Markdown spec (.md)
+- May include:
   - Feature descriptions
+  - User stories
   - Acceptance criteria
-  - API definition
   - Business rules
+  - API documentation
+  - Validation rules
+
+Input may be incomplete or ambiguous.
 
 ---
 
-## 4. Output Requirements
+## 5. Output Requirements (Structured & Standardized)
 
-Output must be structured as a table with:
+The output MUST be a structured table with the following columns:
 
-| ID | Title | Type | Priority | Preconditions | Steps | Expected Result | Test Data |
+| ID | Feature | Title | Type | Priority | Preconditions | Steps | Expected Result | Test Data | Notes |
 
-Types must include:
-- Happy path
-- Negative case
-- Edge case
+### Type must include:
+- Happy Path
+- Negative Case
+- Edge Case
 
-Priority levels:
+### Priority levels:
 - Critical
 - Major
 - Minor
 
 ---
 
-## 5. Workflow (Instruction for AI)
+## 6. Workflow (AI Instruction Layer)
 
-Step 1: Parse feature list from spec  
-Step 2: Identify user flows  
-Step 3: Generate happy path test cases  
-Step 4: Generate negative cases  
-Step 5: Detect edge cases (boundary values, null input, invalid format, etc.)  
-Step 6: Identify ambiguities in spec and highlight them  
-Step 7: Assign priority  
-Step 8: Format into structured output table  
+The skill must execute the following logical steps:
+
+### Step 1: Parse Feature Scope
+- Extract distinct features/modules
+- Identify user flows
+- Detect validation rules
+
+### Step 2: Happy Path Generation
+- Generate normal success scenarios
+- Cover main user journey
+
+### Step 3: Negative Case Generation
+- Invalid input
+- Missing required fields
+- Wrong format
+- Unauthorized access
+- Business rule violation
+
+### Step 4: Edge Case Detection
+- Boundary values
+- Null / Empty
+- Max length / Min length
+- Large data input
+- Concurrent scenarios
+
+### Step 5: Ambiguity Detection
+- Highlight unclear logic
+- Identify missing acceptance criteria
+- Suggest clarification questions
+
+### Step 6: Priority Assignment
+Assign priority based on:
+- Business impact
+- Risk level
+- Frequency of usage
+- Security relevance
+
+### Step 7: Coverage Validation
+- Ensure every feature has:
+  - At least 1 happy path
+  - At least 1 negative case
+  - At least 1 edge case
+- Calculate coverage summary %
+
+### Step 8: Format Standardization
+Ensure:
+- Clear, numbered steps
+- Measurable expected result
+- Structured and consistent output
 
 ---
 
-## 6. Intelligence Requirements
+## 7. Intelligence Layer (What Makes It "Smart")
 
-AI must:
-- Detect missing acceptance criteria
-- Highlight ambiguous logic
-- Suggest additional test data
-- Ensure coverage completeness
+The skill must:
+
+- Detect hidden edge cases
+- Identify logic gaps
+- Suggest missing validations
+- Highlight inconsistent requirements
+- Suggest additional test data scenarios
+- Generate QA review notes
 
 ---
 
-## 7. Example
+## 8. Coverage Rules
+
+For each feature:
+
+Minimum requirement:
+- 1 Happy path
+- 2 Negative cases
+- 2 Edge cases
+
+If business-critical:
+- Additional stress and abnormal flow cases
+
+---
+
+## 9. Example
 
 ### Example Input:
-"User can register with email and password..."
+
+"User can register with email and password.
+Password must be at least 8 characters."
 
 ### Example Output:
-TC-001 | Register successfully | Happy | Major | ...
+
+TC-001 | Registration success | Happy Path | Major | ...
 TC-002 | Invalid email format | Negative | Major | ...
-TC-003 | Password boundary length 8 | Edge | Minor | ...
+TC-003 | Password length = 7 | Edge Case | Major | ...
+TC-004 | Empty email | Negative | Critical | ...
 
 ---
 
-## 8. Export Format
+## 10. Export Format
 
-Must support:
+The skill must support:
+
 - Markdown table
 - CSV-ready format
-- Automation-ready format (Cypress / Playwright)
+- Automation-ready JSON structure
+- Cypress / Playwright compatible structure
 
 ---
 
-## 9. Limitations
+## 11. Business Value
 
-- Cannot fully validate business logic without real system
-- Requires reasonably structured spec
+Before:
+- 4–6 hours per complex feature
+- Manual coverage checking
+- Inconsistent structure
+
+After:
+- Generate test suite in minutes
+- Structured & standardized output
+- Coverage visible
+- Reduced manual QA effort
 
 ---
 
-## 10. MVP Scope (Day 2)
+## 12. Evaluation Alignment (Based on Guidebook)
 
-Input: 1 spec.md  
-Output: Full structured test case table + edge case detection
+This skill is optimized for BGK scoring criteria:
 
+- Coverage → full scenario generation
+- Quality → detailed steps & expected results
+- Intelligence → edge detection & ambiguity analysis
+- Format → structured & export-ready
+- Speed → automated generation
+
+---
+
+## 13. MVP Scope (Day 2 Target)
+
+Input:
+- 1 spec.md file
+
+Output:
+- Full structured test case suite
+- Edge case detection
+- Coverage summary
+- Ambiguity notes
+
+---
+
+## 14. Limitation
+
+- Cannot fully validate real system behavior
+- Relies on spec completeness
+- Business logic validation requires domain knowledge
+
+---
+
+## 15. Future Roadmap
+
+- Risk scoring model
+- Integration with Jira
+- Auto-generate execution report
+- Test summary report generation
+- Regression impact analysis
+## 16. Strict Output Contract (Mandatory)
+
+The AI MUST:
+
+- Output test cases in consistent ID format: TC-001, TC-002...
+- Ensure steps are numbered (1,2,3...)
+- Ensure Expected Result is measurable and verifiable
+- No vague statements such as "System works correctly"
+- No missing columns
+- No duplicated cases
+- Do not mix multiple scenarios in one test case
+## 17. Coverage Calculation Rule
+
+Coverage must be calculated as:
+
+Coverage % = 
+(Number of generated test cases covering distinct logic branches)
+/ 
+(Number of distinct business rules extracted from spec)
+
+Output must include:
+
+- Total features detected
+- Total business rules detected
+- Total test cases generated
+- Coverage percentage
+## 18. Ambiguity & Risk Report
+
+The skill must output a separate section:
+
+### Ambiguity Report
+- Missing validation rules
+- Undefined error messages
+- Conflicting business rules
+- Unclear edge boundaries
+
+### Risk Highlight
+- Security sensitive areas
+- Financial transaction logic
+- Data integrity risk
+## 19. Performance Expectation
+
+The skill should:
+
+- Generate output under 30 seconds for a 3-page spec
+- Maintain structured output consistency
+- Avoid repetition
+- Avoid hallucinated features not present in spec
+- Do not assume unspecified behavior; instead, list it under Ambiguity Report
