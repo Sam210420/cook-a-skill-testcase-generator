@@ -285,3 +285,74 @@ The skill should:
 - Avoid repetition
 - Avoid hallucinated features not present in spec
 - Do not assume unspecified behavior; instead, list it under Ambiguity Report
+## 20. Data Dictionary – Test Case Structure Definition
+
+Each generated test case must strictly follow the schema below:
+
+| Field | Type | Required | Description |
+|-------|------|----------|------------|
+| ID | String | Yes | Unique identifier (TC-001 format) |
+| Feature | String | Yes | Feature or module name |
+| Title | String | Yes | Clear and concise test case name |
+| Type | Enum | Yes | Happy Path / Negative / Edge |
+| Priority | Enum | Yes | Critical / Major / Minor |
+| Preconditions | String | Optional | System state before execution |
+| Steps | List<String> | Yes | Numbered execution steps |
+| Expected Result | String | Yes | Measurable, verifiable outcome |
+| Test Data | String | Optional | Specific input data used |
+| Notes | String | Optional | Additional QA notes |
+
+Constraints:
+- Steps must be atomic and sequential.
+- Expected Result must be observable and testable.
+- One scenario per test case.
+## 21. Error Matrix – Generator Failure Handling
+
+The skill must handle the following error scenarios:
+
+| Error Type | Cause | Tool Behavior | User Message |
+|------------|-------|--------------|--------------|
+| Invalid file format | Not .md or unsupported format | Reject input | "Unsupported file format. Please upload a Markdown spec file." |
+| Empty spec | No content | Stop processing | "Spec file is empty." |
+| Extremely large spec | Exceeds defined boundary | Partial parse or reject | "Spec exceeds maximum supported size." |
+| Ambiguous spec | Missing business rules | Generate ambiguity report | "Spec contains unclear requirements." |
+| Internal parsing failure | AI cannot extract structure | Safe fallback | "Unable to parse spec structure." |
+
+The skill must never:
+- Crash silently
+- Output incomplete tables without warning
+## 22. Tool Boundaries
+
+Input Constraints:
+- Maximum file size: 10,000 words
+- Maximum features supported per run: 20
+- Supported language: English (MVP phase)
+
+Output Constraints:
+- Maximum 500 test cases per generation
+- Generation time target: < 30 seconds
+
+Out of Scope:
+- Real system execution validation
+- Integration with external APIs (MVP)
+- UI testing automation execution
+## 23. Security & Data Protection
+
+Since this generator may process confidential product specifications, the following principles apply:
+
+- No persistent storage of input data
+- No training on user-provided spec
+- No external API transmission (MVP phase)
+- Sensitive data masking (if detected)
+- Input is processed in-session only
+
+If sensitive information such as:
+- API keys
+- Database credentials
+- Financial logic
+- Authentication flows
+
+is detected, the skill must:
+- Flag under Risk Highlight
+- Avoid echoing secrets in output
+
