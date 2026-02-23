@@ -336,6 +336,16 @@ Out of Scope:
 - Real system execution validation
 - Integration with external APIs (MVP)
 - UI testing automation execution
+### System Boundaries (Technical)
+
+- Maximum file size: 2MB
+- Maximum word count: 10,000 words
+- Maximum concurrent requests: 5
+- Hard timeout: 45 seconds
+- Memory ceiling: 512MB
+- Supported language (MVP): English only
+- Unsupported formats: .pdf, .docx, images
+
 ## 23. Security & Data Protection
 
 Since this generator may process confidential product specifications, the following principles apply:
@@ -355,4 +365,13 @@ If sensitive information such as:
 is detected, the skill must:
 - Flag under Risk Highlight
 - Avoid echoing secrets in output
+### Encryption & Confidentiality Policy
+
+- All input data must be transmitted via HTTPS (TLS 1.2+)
+- No plaintext logging of user input
+- No storage of spec content in database
+- Session memory cleared after generation
+- No analytics tracking of spec content
+- Optional client-side encryption supported in enterprise mode
+
 
