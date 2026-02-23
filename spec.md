@@ -13,7 +13,7 @@ Manual writing often leads to:
 - Lack of priority classification
 - Poor coverage visibility
 - Manual reporting effort after testing
-
+  
 This skill aims to encode professional QA thinking into a structured AI workflow.
 
 ---
