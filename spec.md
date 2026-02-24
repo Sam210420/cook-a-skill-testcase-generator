@@ -133,3 +133,38 @@
 - **Day 1:** Static analysis of Code/API files & Logic branch extraction.
 - **Day 2:** Generation of Automated-ready Test Cases & Markdown Export.
 - **Expectation:** Output under 30s for a standard 1,000-line script while maintaining structured consistency and avoiding hallucinated features.
+## 11. High-Level Architecture
+
+Components:
+
+1. Input Parser Layer
+2. Semantic Analyzer
+3. Logic Branch Extractor
+4. Scenario Generator
+5. Priority Engine
+6. Coverage Calculator
+7. Ambiguity Detector
+8. Markdown Formatter
+
+Execution Flow:
+Input → Static Analysis → Semantic Mapping → Scenario Expansion → Validation → Output Formatter
+## Error Handling & Fallback Strategy
+
+- Invalid format → Return structured error with reason
+- Exceed size limit → Reject before processing
+- Timeout → Partial generation + warning
+- Parsing failure → Fallback to text-based semantic analysis
+## Output Validation Layer
+
+Before final markdown export, system must:
+
+- Validate field completeness
+- Cross-check extracted business rules vs test cases
+- Ensure coverage formula consistency
+- Reject hallucinated logic not found in input
+## Success Metrics
+
+- Reduce manual test case writing time by ≥ 60%
+- Improve edge case detection coverage by ≥ 30%
+- Reduce missed requirement bugs in UAT phase
+- Maintain output consistency score ≥ 95%
