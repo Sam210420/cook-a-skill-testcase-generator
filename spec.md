@@ -168,3 +168,8 @@ Before final markdown export, system must:
 - Improve edge case detection coverage by ≥ 30%
 - Reduce missed requirement bugs in UAT phase
 - Maintain output consistency score ≥ 95%
+## Demo Flow (Live)
+1. User provides: [a feature spec.md file]
+2. Skill analyzes: extracts features → identifies logic branches
+3. Output within 30s: structured test case table covering Happy / Negative / Edge cases + Priority
+4. Platform: Claude Project / Custom GPT
